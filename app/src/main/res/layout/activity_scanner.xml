@@ -60,6 +60,21 @@
         app:backgroundTint="@color/yellow"
         />
 
+    <Button
+        android:id="@+id/idButtonRead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_below="@+id/idButtonDetect"
+        android:layout_marginTop="30sp"
+        android:text="Read Text"
+        android:textAllCaps="false"
+        android:background="@drawable/button_black"
+        app:backgroundTint="@color/yellow"
+
+        />
+
 
 
 

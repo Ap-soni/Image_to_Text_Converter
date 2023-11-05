@@ -15,6 +15,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,12 +31,16 @@ import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
+import java.util.Locale;
+
 public class ScannerActivity extends AppCompatActivity {
 
     private ImageView captureIV;
     private TextView resultIV;
-    private Button snapbtn,detectbtn;
+    private Button snapbtn,detectbtn,readbtn;
     private Bitmap imagebitmap;
+    TextToSpeech textToSpeech;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,26 @@ public class ScannerActivity extends AppCompatActivity {
         detectbtn=findViewById(R.id.idButtonDetect);
         snapbtn=findViewById(R.id.idButtonSnap);
         resultIV=findViewById(R.id.idTVDetectedText);
+        readbtn=findViewById(R.id.idButtonRead);
+        textToSpeech=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    textToSpeech.setLanguage(Locale.US);
+
+                }
+
+            }
+        });
+
+        readbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textToSpeech.speak(resultIV.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+
+            }
+        });
+
         detectbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
